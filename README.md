@@ -4,6 +4,13 @@ https://github.com/cashapp/sqldelight
 
 Using a simple schema to store the migration version that matches the SqlDelight migration
 
+```sql
+ CREATE TABLE IF NOT EXISTS migrations (
+    version INTEGER PRIMARY KEY,
+    applied_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+ );
+```
+
 Assumes the database schema is empty or the migrations table is empty or set to a version
 
 Using migrations - it can assume the initial schema exists already.
@@ -12,13 +19,6 @@ The naming of the migrations files are zero index based as we start from nothing
 
 What is `confusing` is that the migration numbering is such that, for example, `v1_add_table.sqm` means changes 
 to move from version 1 to version 2 of the scheme and doesn't represent the initial version 1 schema.
-
-```sql
- CREATE TABLE IF NOT EXISTS migrations (
-    version INTEGER PRIMARY KEY,
-    applied_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
- );
-```
 
 `deriveSchemaFromMigrations` is enabled in build
 
