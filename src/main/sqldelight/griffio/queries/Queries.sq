@@ -1,0 +1,2 @@
+insert:
+INSERT INTO SomeTable (a) VALUES (?);

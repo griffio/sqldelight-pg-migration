@@ -1,0 +1,10 @@
+CREATE TABLE AnotherTable (
+  a TEXT
+);
+
+CREATE UNIQUE INDEX index_AnotherTable_a ON AnotherTable(a);
+
+INSERT INTO AnotherTable (a) VALUES ('a');
+INSERT INTO AnotherTable (a) VALUES ('b');
+INSERT INTO AnotherTable (a) VALUES ('c');
+--INSERT INTO AnotherTable (a) VALUES ('a'); -- comment this out for migration to succeed
