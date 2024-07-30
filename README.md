@@ -51,11 +51,16 @@ INSERT INTO AnotherTable (a) VALUES ('c');
 INSERT INTO AnotherTable (a) VALUES ('a'); -- comment this out for migration to succeed
 ```
 
-see https://github.com/griffio/sqldelight-postgres-01 for Flyway migrations 
-see https://github.com/griffio/sqldelight-postgres-02 for Liquibase migrations
-
 ```bash
 createdb sample_db &&
 ./gradlew build &&
 ./gradlew run
 ```
+
+---
+
+For more robust migrations and more complex configuration
+
+see https://github.com/griffio/sqldelight-postgres-01 for Flyway migrations
+
+see https://github.com/griffio/sqldelight-postgres-02 for Liquibase migrations
