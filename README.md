@@ -26,7 +26,10 @@ On every application startup - attempt to create or migrate the database to the 
 
 The initial migration version is zero as assumes that database is empty 
 
-* Transactional DDL with PostgreSql - see https://wiki.postgresql.org/wiki/Transactional_DDL_in_PostgreSQL:_A_Competitive_Analysis
+* Transactional DDL with PostgreSql
+  - We want each migration attempt to succeed or fail atomically, the generated Schema code doesn't use a transaction block
+  - Wrap migrate with `sample.transaction` block as otherwise each statement would be run in own transaction
+  - see https://wiki.postgresql.org/wiki/Transactional_DDL_in_PostgreSQL:_A_Competitive_Analysis
 
 Version 2 (`1_add_table.sqm`) of the migration will fail due to the duplicate insert row - all the statements in the same transaction will roll back
 
