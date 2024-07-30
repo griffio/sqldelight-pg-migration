@@ -30,29 +30,29 @@ fun migrateIfNeeded(driver: SqlDriver, sample: Sample) {
             "SELECT COALESCE(MAX(version), 0) AS current_version FROM migrations", {
                 QueryResult.Value(if (it.next().value) it.getLong(0)!! else 0L)
             }, 0
-        )
+        ).value
 
     val newVersion: Long = Sample.Schema.version
 
     when {
-        oldVersion.value == 0L -> {
-            println("Creating DB from version ${oldVersion.value} to $newVersion")
+        oldVersion == 0L -> {
+            println("Creating DB from version $oldVersion to $newVersion")
             sample.transaction { // Use transactional DDL
                 // Sample.Schema.create doesn't include DML (e.g inserts) only DDL statements
-                Sample.Schema.migrate(driver, oldVersion.value, newVersion) // migrate includes inserts
+                Sample.Schema.migrate(driver, oldVersion, newVersion) // migrate includes inserts
                 driver.execute(null, "INSERT INTO migrations (version) VALUES ($newVersion);", 0)
             }
         }
 
-        newVersion > oldVersion.value -> {
+        newVersion > oldVersion -> {
             println("Migrating DB from version $oldVersion to $newVersion!")
             sample.transaction { // Use transactional DDL
-                Sample.Schema.migrate(driver, oldVersion.value, newVersion) // migrate includes inserts
+                Sample.Schema.migrate(driver, oldVersion, newVersion) // migrate includes inserts
                 driver.execute(null, "INSERT INTO migrations (version) VALUES ($newVersion);", 0)
             }
         }
 
-        else -> println("Migration not needed: database migrations ${oldVersion.value} / local migrations $newVersion")
+        else -> println("Migration not needed: database migrations $oldVersion / local migrations $newVersion")
     }
 }
 
