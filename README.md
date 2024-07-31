@@ -6,6 +6,7 @@ For the JDBC Driver in SqlDelight, there is no default migration file support
  - see how it is built in for Sqlite [sqlite-driver](https://github.com/cashapp/sqldelight/blob/bd3cd6b2ca4c145a44686e85cfb4ed94e3513995/drivers/sqlite-driver/src/main/kotlin/app/cash/sqldelight/driver/jdbc/sqlite/JdbcSqliteSchema.kt#L20-L42)
 
 For PostgreSql, using a simple schema to retrieve/store the migration version, the updated `sqm` files can be applied on application start up
+- The below implementation is an example only to make it more obvious and could be factored into extension functions or other reusable code
 
 ```sql
  CREATE TABLE IF NOT EXISTS migrations (
