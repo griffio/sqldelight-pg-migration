@@ -20,14 +20,16 @@ Using migrations - it can assume the initial schema exists already.
 
 The naming of the migrations files are zero index based as we start from nothing.
 
-What is `confusing` is that the migration numbering is such that, for example, `v1_add_table.sqm` means changes 
+What is _confusing_ is that the migration numbering is such that, for example, `v1_add_table.sqm` means changes 
 to move from version 1 to version 2 of the scheme and doesn't represent the initial version 1 schema.
 
-`deriveSchemaFromMigrations` is enabled in build
+`deriveSchemaFromMigrations` is enabled in build. This is used as SqlDelight is schema first and, for example,
+because table column names, nullability can be changed the data class tables and queries will need to reflect the latest
+version.
 
-On every application startup - attempt to create or migrate the database to the local migration version
+On every application startup - attempt to create or migrate the database to the local migration version.
 
-The initial migration version is zero as assumes that database is empty 
+The initial migration version is zero as assumes that a database is empty.
 
 * Transactional DDL with PostgreSql
   - We want each migration attempt to succeed or fail atomically, the generated Schema code doesn't use a transaction block
