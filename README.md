@@ -28,6 +28,10 @@ to move from version 1 to version 2 of the scheme and doesn't represent the init
 because table column names, nullability can be changed the data class tables and queries will need to reflect the latest
 version.
 
+On build, SqlDelight will generate the database schema implementation code e.g. `griffio.queries.sqldelightpgsimplemigrations.SampleImpl` containing all the migration statements, in `build\generated\sqldelight\...`
+
+The generated Schema is available e.g, `Sample.Schema.migrate(...)` to be executed with the desired start state and end state version number
+
 On every application startup - attempt to create or migrate the database to the local migration version.
 
 The initial migration version is zero as assumes that a database is empty.
